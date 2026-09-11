@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mann Shanti 🪷</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #fff8ed, #f8edff);
+      color: #3d2948;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 700;
+      color: #7b3f98;
+    }
+
+    nav a {
+      text-decoration: none;
+      margin-left: 25px;
+      color: #54395f;
+      font-weight: 500;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px 50px;
+    }
+
+    .lotus {
+      font-size: 55px;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 65px);
+      color: #63377b;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #725c79;
+      max-width: 650px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 45px 0 25px;
+      font-size: 30px;
+      color: #63377b;
+    }
+
+    .moods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+    }
+
+    .mood {
+      background: white;
+      border: none;
+      border-radius: 20px;
+      padding: 25px 10px;
+      cursor: pointer;
+      font-size: 17px;
+      color: #503858;
+      box-shadow: 0 8px 25px rgba(90,50,100,0.08);
+      transition: 0.3s;
+    }
+
+    .mood:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(90,50,100,0.15);
+    }
+
+    .mood span {
+      display: block;
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    #result {
+      display: none;
+      margin-top: 30px;
+      background: white;
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 10px 35px rgba(90,50,100,0.1);
+      text-align: center;
+    }
+
+    #result h3 {
+      color: #7b3f98;
+      font-size: 25px;
+      margin-bottom: 12px;
+    }
+
+    #result p {
+      line-height: 1.7;
+      color: #66516c;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.85);
+      padding: 28px;
+      border-radius: 25px;
+      box-shadow: 0 8px 25px rgba(90,50,100,0.08);
+    }
+
+    .card h3 {
+      color: #743c91;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #6d5b72;
+      line-height: 1.6;
+    }
+
+    .timer {
+      text-align: center;
+      background: linear-gradient(135deg, #713b8e, #9b63ad);
+      color: white;
+      padding: 40px;
+      border-radius: 30px;
+      margin-bottom: 50px;
+    }
+
+    #time {
+      font-size: 55px;
+      margin: 20px;
+    }
+
+    .timer button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      background: white;
+      color: #713b8e;
+      font-weight: bold;
+    }
+
+    .chat {
+      background: white;
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 8px 30px rgba(90,50,100,0.1);
+      margin-bottom: 60px;
+    }
+
+    .chat-box {
+      height: 250px;
+      overflow-y: auto;
+      padding: 15px;
+      background: #faf6fc;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    .message {
+      padding: 12px 16px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+      max-width: 80%;
+      line-height: 1.5;
+    }
+
+    .bot {
+      background: #eee1f4;
+    }
+
+    .user {
+      background: #ead4b8;
+      margin-left: auto;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      outline: none;
+    }
+
+    .chat-input button {
+      border: none;
+      padding: 0 20px;
+      border-radius: 25px;
+      background: #713b8e;
+      color: white;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #735b79;
+    }
+
+    @media(max-width:600px) {
+      nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🪷 Mann Shanti</div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#mood">Mood</a>
+    <a href="#meditation">Meditation</a>
+    <a href="#chat">AI Guide</a>
+  </nav>
+</header>
+
+
+<section class="hero" id="home">
+
+  <div class="lotus">🪷</div>
+
+  <h1>Find Peace Within</h1>
+
+  <p>
+    A peaceful mind begins with a peaceful moment.
+    Tell us how you feel and discover a personalized
+    spiritual path for your mind and soul.
+  </p>
+
+</section>
+
+
+<div class="container">
+
+  <h2 class="section-title" id="mood">
+    How are you feeling today?
+  </h2>
+
+  <div class="moods">
+
+    <button class="mood" onclick="showGuidance('sad')">
+      <span>😔</span>
+      Sad
+    </button>
+
+    <button class="mood" onclick="showGuidance('stressed')">
+      <span>😰</span>
+      Stressed
+    </button>
+
+    <button class="mood" onclick="showGuidance('angry')">
+      <span>😡</span>
+      Angry
+    </button>
+
+    <button class="mood" onclick="showGuidance('unfocused')">
+      <span>🥱</span>
+      Unfocused
+    </button>
+
+    <button class="mood" onclick="showGuidance('peaceful')">
+      <span>😊</span>
+      Peaceful
+    </button>
+
+  </div>
+
+
+  <div id="result">
+
+    <h3 id="resultTitle"></h3>
+
+    <p id="resultText"></p>
+
+  </div>
+
+
+  <h2 class="section-title">
+    Your Spiritual Toolkit
+  </h2>
+
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>🕉️ Daily Mantra</h3>
+
+      <p>
+        Take a moment to repeat a meaningful mantra
+        slowly and peacefully. Focus on the sound
+        and your breathing.
+      </p>
+    </div>
+
+
+    <div class="card">
+      <h3>🙏 Gratitude</h3>
+
+      <p>
+        Think of three things you are grateful for today.
+        Gratitude helps shift attention toward the positive
+        moments in life.
+      </p>
+    </div>
+
+
+    <div class="card">
+      <h3>📖 Wisdom</h3>
+
+      <p>
+        “You have control over your actions,
+        but not always over their results.”
+        — Bhagavad Gita, 2.47
+      </p>
+    </div>
+
+  </div>
+
+
+  <section class="timer" id="meditation">
+
+    <h2>🧘 2-Minute Peace Meditation</h2>
+
+    <div id="time">02:00</div>
+
+    <button onclick="startTimer()">Start Meditation</button>
+
+  </section>
+
+
+  <section class="chat" id="chat">
+
+    <h2 class="section-title">
+      🤖 Spiritual AI Guide
+    </h2>
+
+    <div class="chat-box" id="chatBox">
+
+      <div class="message bot">
+        Namaste 🪷 I'm your spiritual companion.
+        You can share what's on your mind.
+      </div>
+
+    </div>
+
+    <div class="chat-input">
+
+      <input
+        type="text"
+        id="userInput"
+        placeholder="Tell me what's on your mind..."
+        onkeydown="if(event.key==='Enter') sendMessage()"
+      >
+
+      <button onclick="sendMessage()">Send</button>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<footer>
+  🪷 Mann Shanti — A small step towards inner peace.
+</footer>
+
+
+<script>
+
+  /* MOOD GUIDANCE */
+
+  const guidance = {
+
+    sad: {
+      title: "It's okay to feel sad 🪷",
+      text:
+      "Take a slow breath and give yourself a moment. You don't have to solve everything right now. Sit quietly for a few minutes, listen to a peaceful mantra, and remind yourself that difficult feelings can change with time."
+    },
+
+    stressed: {
+      title: "Slow down and breathe 🌿",
+      text:
+      "Put everything aside for two minutes. Take a slow breath in and breathe out gently. Focus only on the present moment. You don't need to handle everything at once."
+    },
+
+    angry: {
+      title: "Pause before you react 🕊️",
+      text:
+      "Give yourself some space before responding. Take a few deep breaths and allow the intensity of the moment to settle. A calm response is often more powerful than an immediate reaction."
+    },
+
+    unfocused: {
+      title: "Bring your mind back 🌸",
+      text:
+      "Choose just one small task. Put away distractions and spend five peaceful minutes focusing only on that task. A calm mind can gradually rebuild concentration."
+    },
+
+    peaceful: {
+      title: "Protect this peaceful moment ✨",
+      text:
+      "Enjoy this moment without rushing to the next thing. Take a few breaths, express gratitude, and carry this sense of calm into your next activity."
+    }
+
+  };
+
+
+  function showGuidance(mood) {
+
+    document.getElementById("result").style.display = "block";
+
+    document.getElementById("resultTitle").innerText =
+      guidance[mood].title;
+
+    document.getElementById("resultText").innerText =
+      guidance[mood].text;
+
+    document.getElementById("result")
+      .scrollIntoView({ behavior: "smooth" });
+
+  }
+
+
+  /* MEDITATION TIMER */
+
+  let seconds = 120;
+  let timerRunning = false;
+
+  function startTimer() {
+
+    if (timerRunning) return;
+
+    timerRunning = true;
+
+    const timer = setInterval(() => {
+
+      let minutes = Math.floor(seconds / 60);
+
+      let secs = seconds % 60;
+
+      document.getElementById("time").innerText =
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(secs).padStart(2, "0");
+
+      seconds--;
+
+      if (seconds < 0) {
+
+        clearInterval(timer);
+
+        document.getElementById("time").innerText =
+          "✨ Peace ✨";
+
+        seconds = 120;
+
+        timerRunning = false;
+
+      }
+
+    }, 1000);
+
+  }
+
+
+  /* CHATBOT */
+
+  function sendMessage() {
+
+    const input =
+      document.getElementById("userInput");
+
+    const message =
+      input.value.trim();
+
+    if (message === "") return;
+
+
+    const chatBox =
+      document.getElementById("chatBox");
+
+
+    const userMessage =
+      document.createElement("div");
+
+    userMessage.className =
+      "message user";
+
+    userMessage.innerText =
+      message;
+
+    chatBox.appendChild(userMessage);
+
+
+    input.value = "";
+
+
+    setTimeout(() => {
+
+      const botMessage =
+        document.createElement("div");
+
+      botMessage.className =
+        "message bot";
+
+      botMessage.innerText =
+        getBotResponse(message);
+
+      chatBox.appendChild(botMessage);
+
+      chatBox.scrollTop =
+        chatBox.scrollHeight;
+
+    }, 500);
+
+  }
+
+
+  function getBotResponse(message) {
+
+    const text =
+      message.toLowerCase();
+
+
+    if (
+      text.includes("stress") ||
+      text.includes("stressed")
+    ) {
+
+      return "Take a slow breath 🪷. You don't need to solve everything at once. Give yourself two quiet minutes and focus only on your breathing.";
+
+    }
+
+
+    if (
+      text.includes("sad") ||
+      text.includes("lonely")
+    ) {
+
+      return "I'm sorry you're having a difficult moment. Be gentle with yourself. Take some time to breathe, reflect, and connect with someone you trust if you need support. 🪷";
+
+    }
+
+
+    if (
+      text.includes("angry") ||
+      text.includes("anger")
+    ) {
+
+      return "Before reacting, take a pause. Breathe slowly and give yourself some space. Respond when your mind feels calmer. 🕊️";
+
+    }
+
+
+    if (
+      text.includes("focus") ||
+      text.includes("study")
+    ) {
+
+      return "Try a simple practice: keep your phone away, take three slow breaths, and choose one small task to complete first. 🌸";
+
+    }
+
+
+    if (
+      text.includes("mantra") ||
+      text.includes("meditation")
+    ) {
+
+      return "Sit comfortably, close your eyes if you wish, breathe slowly, and repeat your chosen mantra with attention. 📿";
+
+    }
+
+
+    return "Take a peaceful breath and give yourself a moment. Sometimes the first step toward clarity is simply slowing down. 🪷";
+
+  }
+
+</script>
+
+</body>
+</html>
